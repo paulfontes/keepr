@@ -81,4 +81,24 @@ public class KeepsRepository
         }, new { keepId }).SingleOrDefault();
         return keep;
     }
+
+    internal void UpdateKeep(Keep newKeepData)
+    {
+        string sql = @"
+        UPDATE 
+        keeps
+        SET
+        name = @Name,
+        description = @Description
+        WHERE id = @Id LIMIT 1
+        ;";
+
+        int rowsAffected = _db.Execute(sql, newKeepData);
+
+        if (rowsAffected != 1)
+        {
+            throw new Exception("Multiple rows of data may have been messed with!");
+        }
+
+    }
 }

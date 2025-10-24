@@ -1,6 +1,7 @@
 
 
 
+
 namespace keepr.Services;
 
 public class KeepsService
@@ -27,5 +28,21 @@ public class KeepsService
     {
         Keep keep = _repository.GetKeepById(keepId);
         return keep;
+    }
+
+    internal Keep UpdateKeep(Keep newKeepData, int keepId, Account userInfo)
+    {
+        Keep oldKeepData = GetKeepById(keepId);
+        if (oldKeepData.CreatorId != userInfo.Id)
+        {
+            throw new Exception("You can't update other peoples Keeps!!");
+        }
+
+        oldKeepData.Name = newKeepData.Name ?? oldKeepData.Name;
+        oldKeepData.Description = newKeepData.Description ?? oldKeepData.Description;
+
+        _repository.UpdateKeep(oldKeepData);
+
+        return oldKeepData;
     }
 }

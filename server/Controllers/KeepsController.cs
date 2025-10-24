@@ -62,8 +62,15 @@ public class KeepsController : ControllerBase
     [HttpPut("{keepId}"), Authorize]
     public async Task<ActionResult<Keep>> UpdateKeep([FromBody] Keep keepData, int keepId)
     {
-        Account userInfo = await _auth.GetUserInfoAsync<Account>(HttpContext);
-        Keep UpdatedKeep = _keepsService.UpdateKeep(keepData, keepId, userInfo);
-        return Ok(UpdatedKeep);
+        try
+        {
+            Account userInfo = await _auth.GetUserInfoAsync<Account>(HttpContext);
+            Keep UpdatedKeep = _keepsService.UpdateKeep(keepData, keepId, userInfo);
+            return Ok(UpdatedKeep);
+        }
+        catch (Exception exception)
+        {
+            return BadRequest(exception.Message);
+        }
     }
 }

@@ -43,3 +43,5 @@ DROP TABLE accounts
 SELECT * FROM keeps
 
 SELECT * FROM accounts
+
+UPDATE keeps SET name = 'Cool Beach' WHERE id = 1
