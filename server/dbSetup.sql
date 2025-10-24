@@ -20,6 +20,18 @@ CREATE TABLE keeps (
     Foreign Key (creator_id) REFERENCES accounts (id)
 )
 
+CREATE TABLE vaults (
+    id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT 'Time Created',
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'Last Update',
+    name VARCHAR(255) NOT NULL,
+    description VARCHAR(1000) NOT NULL,
+    img VARCHAR(1000) NOT NULL,
+    is_private BOOLEAN NOT NULL,
+    creator_id VARCHAR(255) NOT NULL,
+    Foreign Key (creator_id) REFERENCES accounts (id)
+)
+
 INSERT INTO
     keeps (
         name,
@@ -36,11 +48,31 @@ VALUES (
         "68f856fe03bda77bdf77448e"
     )
 
+INSERT INTO
+    vaults (
+        name,
+        description,
+        img,
+        is_private,
+        creator_id
+    )
+VALUES (
+        "Favorite Games",
+        "My favorite games I like to play!",
+        "https://images.unsplash.com/photo-1530131272429-0ad33e79aeb8?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8bWFuaGF0dGFuJTIwYmVhY2h8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&q=60&w=500",
+        true,
+        "68f856fe03bda77bdf77448e"
+    )
+
 DROP TABLE keeps
+
+DROP TABLE vaults
 
 DROP TABLE accounts
 
 SELECT * FROM keeps
+
+SELECT * FROM vaults
 
 SELECT * FROM accounts
 
