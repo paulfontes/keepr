@@ -1,5 +1,7 @@
 
 
+using System.Security.Cryptography.X509Certificates;
+
 namespace keepr.Repositories;
 
 public class KeepsRepository
@@ -45,8 +47,20 @@ public class KeepsRepository
         return keep;
     }
 
-    internal Keep GetKeeps()
+    internal List<Keep> GetKeeps()
     {
-        throw new NotImplementedException();
+        string sql = @"
+        SELECT
+        keeps.*,
+        accounts.*
+        FROM keeps
+        JOIN accounts ON accounts.id = keeps.creator_id
+        ;";
+        List<Keep> keeps = _db.Query(sql, (Keep keep, Creator creator) =>
+        {
+            keep.Creator = creator;
+            return keep;
+        }).ToList();
+        return keeps;
     }
 }
