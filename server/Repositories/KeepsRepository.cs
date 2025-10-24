@@ -1,7 +1,5 @@
 
 
-using System.Security.Cryptography.X509Certificates;
-
 namespace keepr.Repositories;
 
 public class KeepsRepository
@@ -94,6 +92,20 @@ public class KeepsRepository
         ;";
 
         int rowsAffected = _db.Execute(sql, newKeepData);
+
+        if (rowsAffected != 1)
+        {
+            throw new Exception("Multiple rows of data may have been messed with!");
+        }
+
+    }
+
+    internal void DeleteKeep(int keepId)
+    {
+        string sql = @"
+        DELETE FROM keeps WHERE id = @keepId LIMIT 1
+        ;";
+        int rowsAffected = _db.Execute(sql, new { keepId });
 
         if (rowsAffected != 1)
         {

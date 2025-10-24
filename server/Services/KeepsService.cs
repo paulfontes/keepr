@@ -1,7 +1,4 @@
 
-
-
-
 namespace keepr.Services;
 
 public class KeepsService
@@ -27,6 +24,10 @@ public class KeepsService
     internal Keep GetKeepById(int keepId)
     {
         Keep keep = _repository.GetKeepById(keepId);
+        if (keep == null)
+        {
+            throw new Exception("There is no keep at that Id!");
+        }
         return keep;
     }
 
@@ -44,5 +45,16 @@ public class KeepsService
         _repository.UpdateKeep(oldKeepData);
 
         return oldKeepData;
+    }
+
+    internal void DeleteKeep(int keepId, string userId)
+    {
+        Keep keep = GetKeepById(keepId);
+        if (keep.CreatorId != userId)
+        {
+            throw new Exception("You Can't Delete a keep that's not yours!");
+        }
+        _repository.DeleteKeep(keep.Id);
+
     }
 }
