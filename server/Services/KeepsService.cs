@@ -57,4 +57,10 @@ public class KeepsService
         _repository.DeleteKeep(keep.Id);
 
     }
+
+    internal List<Keep> GetKeepsInPublicVault(int vaultId)
+    {
+        List<Keep> keeps = _repository.GetKeepsInPublicVault(vaultId);
+        return keeps;
+    }
 }

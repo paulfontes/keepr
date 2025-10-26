@@ -113,4 +113,16 @@ public class KeepsRepository
         }
 
     }
+
+    internal List<Keep> GetKeepsInPublicVault(int vaultId)
+    {
+        string sql = @"
+        SELECT *
+        FROM keeps
+        WHERE keeps.vault_id = @vaultId;";
+
+        List<Keep> keeps = _db.Query<Keep>(sql, new { vaultId }).ToList();
+
+        return keeps;
+    }
 }

@@ -54,4 +54,5 @@ public class VaultsService
         }
         _repository.DeleteVault(vault.Id);
     }
+
 }
