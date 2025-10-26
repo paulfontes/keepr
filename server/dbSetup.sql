@@ -32,6 +32,18 @@ CREATE TABLE vaults (
     Foreign Key (creator_id) REFERENCES accounts (id)
 )
 
+CREATE TABLE vaultkeeps (
+    id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT 'Time Created',
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'Last Update',
+    keep_id INT NOT NULL,
+    vault_id INT NOT NULL,
+    creator_id VARCHAR(255) NOT NULL,
+    Foreign Key (keep_id) REFERENCES keeps (id),
+    Foreign Key (vault_id) REFERENCES vaults (id),
+    Foreign Key (creator_id) REFERENCES accounts (id)
+)
+
 INSERT INTO
     keeps (
         name,
@@ -70,10 +82,14 @@ DROP TABLE vaults
 
 DROP TABLE accounts
 
+DROP TABLE vaultkeeps
+
 SELECT * FROM keeps
 
 SELECT * FROM vaults
 
 SELECT * FROM accounts
+
+SELECT * FROM vaultkeeps
 
 UPDATE keeps SET name = 'Cool Beach' WHERE id = 1
