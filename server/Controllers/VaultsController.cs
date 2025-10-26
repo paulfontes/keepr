@@ -57,4 +57,19 @@ public class VaultsController : ControllerBase
             return BadRequest(exception.Message);
         }
     }
+
+    [HttpDelete("{vaultId}"), Authorize]
+    public async Task<ActionResult<string>> DeleteVault(int vaultId)
+    {
+        try
+        {
+            Account userInfo = await _auth.GetUserInfoAsync<Account>(HttpContext);
+            Vault vault = _vaultsService.DeleteVault(vaultId, userInfo.Id);
+            return $"Vault {vault.Name} has been deleted!";
+        }
+        catch (Exception exception)
+        {
+            return BadRequest(exception.Message);
+        }
+    }
 }

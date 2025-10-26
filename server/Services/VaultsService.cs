@@ -17,6 +17,7 @@ public class VaultsService
         return vault;
     }
 
+
     internal Vault GetVaultById(int vaultId)
     {
         Vault vault = _repository.GetVaultById(vaultId);
@@ -33,7 +34,7 @@ public class VaultsService
         Vault vault = GetVaultById(vaultId);
         if (vault.CreatorId != userId)
         {
-            throw new Exception("You are allowed to acces this vault!");
+            throw new Exception("You are allowed to access this vault!");
         }
 
         vault.Name = vaultData.Name ?? vault.Name;
@@ -43,5 +44,14 @@ public class VaultsService
 
         _repository.UpdateVault(vault);
         return vault;
+    }
+    internal Vault DeleteVault(int vaultId, string userId)
+    {
+        Vault vault = GetVaultById(vaultId);
+        if (vault.CreatorId != userId)
+        {
+            throw new Exception("You can't delete other peoples Vaults!");
+        }
+        _repository.DeleteVault
     }
 }
