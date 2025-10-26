@@ -42,4 +42,19 @@ public class VaultsController : ControllerBase
             return BadRequest(exception.Message);
         }
     }
+
+    [HttpPut("{vaultId}"), Authorize]
+    public async Task<ActionResult<Vault>> UpdateVault([FromBody] Vault vaultData, int vaultId)
+    {
+        try
+        {
+            Account userInfo = await _auth.GetUserInfoAsync<Account>(HttpContext);
+            Vault vault = _vaultsService.UpdateVault(vaultData, vaultId, userInfo.Id);
+            return vault;
+        }
+        catch (Exception exception)
+        {
+            return BadRequest(exception.Message);
+        }
+    }
 }

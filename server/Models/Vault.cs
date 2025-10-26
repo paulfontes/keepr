@@ -10,7 +10,7 @@ public class Vault
     public string Name { get; set; }
     public string Description { get; set; }
     [Url] public string Img { get; set; }
-    public bool IsPrivate { get; set; }
+    public bool? IsPrivate { get; set; }
     public string CreatorId { get; set; }
     public Creator Creator { get; set; }
 }

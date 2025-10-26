@@ -27,4 +27,21 @@ public class VaultsService
         return vault;
 
     }
+
+    internal Vault UpdateVault(Vault vaultData, int vaultId, string userId)
+    {
+        Vault vault = GetVaultById(vaultId);
+        if (vault.CreatorId != userId)
+        {
+            throw new Exception("You are allowed to acces this vault!");
+        }
+
+        vault.Name = vaultData.Name ?? vault.Name;
+        vault.IsPrivate = vaultData.IsPrivate ?? vault.IsPrivate;
+
+
+
+        _repository.UpdateVault(vault);
+        return vault;
+    }
 }

@@ -1,5 +1,6 @@
 
 
+
 namespace keepr.Repositories;
 
 public class VaultsRepository
@@ -45,10 +46,40 @@ public class VaultsRepository
         return vault;
     }
 
-    // internal Vault GetVaultById(int vaultId)
-    // {
-    //     string sql = @"
+    internal Vault GetVaultById(int vaultId)
+    {
+        string sql = @"
+        SELECT
+        vaults.*,
+        accounts.*
+        FROM vaults
+        JOIN accounts ON accounts.id = vaults.creator_id
+        WHERE vaults.id = @VaultId
+        ;";
+        Vault vault = _db.Query(sql, (Vault vault, Creator creator) =>
+        {
+            vault.Creator = creator;
+            return vault;
+        }, new { vaultId }).SingleOrDefault();
+        return vault;
+    }
 
-    //     ;";
-    // }
+    internal void UpdateVault(Vault vaultData)
+    {
+        string sql = @"
+        UPDATE 
+        vaults
+        SET
+        name = @Name,
+        is_private = @IsPrivate
+        WHERE id = @Id LIMIT 1
+        ;";
+
+        int rowsAffected = _db.Execute(sql, vaultData);
+
+        if (rowsAffected != 1)
+        {
+            throw new Exception("Multiple rows of data may have been messed with!");
+        }
+    }
 }
