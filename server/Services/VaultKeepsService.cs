@@ -1,3 +1,4 @@
+
 namespace keepr.Services;
 
 public class VaultKeepsService
@@ -7,5 +8,15 @@ public class VaultKeepsService
     public VaultKeepsService(VaultKeepsRepository repository)
     {
         _repository = repository;
+    }
+
+    internal VaultKeep CreateVaultKeep(VaultKeep vaultKeepData, string userId)
+    {
+        if (vaultKeepData.CreatorId != userId)
+        {
+            throw new Exception("You can't create another VaultKeep for a different user!");
+        }
+        VaultKeep vaultKeep = _repository.CreateVaultKeep(vaultKeepData);
+        return vaultKeep;
     }
 }
