@@ -46,6 +46,7 @@ public class VaultsRepository
         return vault;
     }
 
+
     internal Vault GetVaultById(int vaultId)
     {
         string sql = @"
@@ -81,5 +82,18 @@ public class VaultsRepository
         {
             throw new Exception("Multiple rows of data may have been messed with!");
         }
+    }
+    internal void DeleteVault(int vaultData)
+    {
+        string sql = @"
+        DELETE FROM vaults WHERE id = @vaultData LIMIT 1
+        ;";
+        int rowsAffected = _db.Execute(sql, new { vaultData });
+
+        if (rowsAffected != 1)
+        {
+            throw new Exception("Multiple rows of data may have been messed with!");
+        }
+
     }
 }

@@ -45,13 +45,13 @@ public class VaultsService
         _repository.UpdateVault(vault);
         return vault;
     }
-    internal Vault DeleteVault(int vaultId, string userId)
+    internal void DeleteVault(int vaultId, string userId)
     {
         Vault vault = GetVaultById(vaultId);
         if (vault.CreatorId != userId)
         {
             throw new Exception("You can't delete other peoples Vaults!");
         }
-        _repository.DeleteVault
+        _repository.DeleteVault(vault.Id);
     }
 }

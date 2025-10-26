@@ -64,8 +64,8 @@ public class VaultsController : ControllerBase
         try
         {
             Account userInfo = await _auth.GetUserInfoAsync<Account>(HttpContext);
-            Vault vault = _vaultsService.DeleteVault(vaultId, userInfo.Id);
-            return $"Vault {vault.Name} has been deleted!";
+            _vaultsService.DeleteVault(vaultId, userInfo.Id);
+            return Ok($"Vault {vaultId} has been deleted!");
         }
         catch (Exception exception)
         {
