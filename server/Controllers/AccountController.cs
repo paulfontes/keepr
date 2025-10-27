@@ -27,4 +27,34 @@ public class AccountController : ControllerBase
       return BadRequest(e.Message);
     }
   }
+
+  [HttpGet("vaults")]
+  public async Task<ActionResult<List<Vault>>> GetVaults()
+  {
+    try
+    {
+      Account userInfo = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);
+      List<Vault> vaults = _accountService.GetVaults(userInfo);
+      return Ok(vaults);
+    }
+    catch (Exception e)
+    {
+      return BadRequest(e.Message);
+    }
+  }
+
+  [HttpPut]
+  public async Task<ActionResult<Creator>> UpdateAccount([FromBody] Creator editData)
+  {
+    try
+    {
+      Creator userInfo = await _auth0Provider.GetUserInfoAsync<Creator>(HttpContext);
+      Creator creator = _accountService.UpdateAccount(editData, userInfo.Id);
+      return Ok(creator);
+    }
+    catch (Exception e)
+    {
+      return BadRequest(e.Message);
+    }
+  }
 }

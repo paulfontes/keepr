@@ -130,7 +130,7 @@ public class KeepsRepository
         {
             keep.VaultKeepId = vaultKeep.Id;
             keep.Creator = creator;
-            keep.Kept = vaultKeep;
+            keep.Kept = vaultKeep.Id;
             return keep;
         }, new { vaultId }, splitOn: "Id,Id").ToList();
 
