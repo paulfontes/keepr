@@ -30,6 +30,11 @@ function logout() {
         </div>
         <div class="dropdown-menu dropdown-menu-sm-end dropdown-menu-start p-0" role="menu" title="account menu">
           <div class="list-group">
+            <RouterLink :to="{ name: 'Profile' }">
+              <div class="list-group-item dropdown-item list-group-item-action">
+                Profile Account
+              </div>
+            </RouterLink>
             <RouterLink :to="{ name: 'Account' }">
               <div class="list-group-item dropdown-item list-group-item-action">
                 Manage Account

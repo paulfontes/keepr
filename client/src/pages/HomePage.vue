@@ -1,7 +1,7 @@
 <script setup>
 import { AppState } from '@/AppState.js';
 import Example from '@/components/Example.vue';
-import KeepCard from '@/components/KeepCard.vue';
+import KeepCard from '@/components/KeepCards.vue';
 import { keepsService } from '@/services/KeepsService.js';
 import { logger } from '@/utils/Logger.js';
 import { Pop } from '@/utils/Pop.js';

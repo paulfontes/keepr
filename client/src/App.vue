@@ -1,6 +1,14 @@
 <script setup>
+import { Modal } from 'bootstrap';
 import Navbar from './components/Navbar.vue';
 import { RouterView } from 'vue-router';
+import ModalWrapper from './components/ModalWrapper.vue';
+import KeepCard from './components/KeepCards.vue';
+import { computed } from 'vue';
+import { AppState } from './AppState.js';
+import KeepDetails from './components/KeepDetails.vue';
+
+
 
 </script>
 
@@ -9,14 +17,13 @@ import { RouterView } from 'vue-router';
     <Navbar />
   </header>
   <main>
-    <RouterView/>
+    <RouterView />
   </main>
   <footer class=" text-center">
-    Made with <i class="mdi mdi-heart text-pink"></i> by CodeWorks
   </footer>
+  <ModalWrapper modalId="keep-details">
+    <KeepDetails />
+  </ModalWrapper>
 </template>
 
-<style lang="scss">
-
-
-</style>
+<style lang="scss"></style>
