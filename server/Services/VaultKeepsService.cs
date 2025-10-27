@@ -16,7 +16,12 @@ public class VaultKeepsService
 
     internal VaultKeep CreateVaultKeep(VaultKeep vaultKeepData, string userId)
     {
-        if (vaultKeepData.CreatorId != userId)
+        Vault vault = _vaultsService.GetVaultById(vaultKeepData.VaultId);
+        // if (vault.Id != vaultKeepData.Id)
+        // {
+        //     throw new Exception("You can't create another VaultKeep for a different user!");
+        // }
+        if (vault.CreatorId != userId)
         {
             throw new Exception("You can't create another VaultKeep for a different user!");
         }
@@ -27,6 +32,10 @@ public class VaultKeepsService
     private VaultKeep GetVaultKeepById(string vaultKeepId)
     {
         VaultKeep vaultKeep = _repository.GetVaultKeepById(vaultKeepId);
+        if (vaultKeep == null)
+        {
+            throw new Exception("There is no Vaultkeep at that Id!");
+        }
         return vaultKeep;
     }
 

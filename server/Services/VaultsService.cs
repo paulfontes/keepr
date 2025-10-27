@@ -20,7 +20,7 @@ public class VaultsService
     }
 
 
-    internal Vault GetVaultById(int vaultId)
+    public Vault GetVaultById(int vaultId)
     {
         Vault vault = _repository.GetVaultById(vaultId);
         if (vault == null)
@@ -29,6 +29,20 @@ public class VaultsService
         }
         return vault;
 
+    }
+
+    internal Vault GetVaultById(int vaultId, string userId)
+    {
+        Vault vault = _repository.GetVaultById(vaultId);
+        if (vault == null)
+        {
+            throw new Exception("There is no vault at the Id of" + vaultId);
+        }
+        if (vault.IsPrivate == true && vault.CreatorId != userId)
+        {
+            throw new Exception("You do not have access to this Vault");
+        }
+        return vault;
     }
 
     internal Vault UpdateVault(Vault vaultData, int vaultId, string userId)

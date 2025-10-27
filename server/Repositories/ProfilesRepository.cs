@@ -45,7 +45,7 @@ public class ProfilesRepository
         accounts.*
         FROM vaults
         JOIN accounts ON accounts.id = vaults.creator_id
-        WHERE vaults.creator_id = @profileId
+        WHERE vaults.is_private = false AND vaults.creator_id = @profileId
         ;";
         List<Vault> vaults = _db.Query(sql, (Vault vault, Creator creator) =>
         {

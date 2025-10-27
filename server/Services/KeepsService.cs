@@ -58,7 +58,7 @@ public class KeepsService
 
     }
 
-    internal List<Keep> GetKeepsInPublicVault(int vaultId, Vault vault, string userId)
+    internal List<Keep> GetKeepsInVault(int vaultId, Vault vault, string userId)
     {
         List<Keep> keeps = _repository.GetKeepsInPublicVault(vaultId);
         if (vault.IsPrivate == true)
