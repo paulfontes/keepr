@@ -5,11 +5,13 @@ public class VaultKeepsService
 {
     private readonly VaultKeepsRepository _repository;
     private readonly VaultsService _vaultsService;
+    private readonly KeepsService _keepsService;
 
-    public VaultKeepsService(VaultKeepsRepository repository, VaultsService vaultsService)
+    public VaultKeepsService(VaultKeepsRepository repository, VaultsService vaultsService, KeepsService keepsService)
     {
         _repository = repository;
         _vaultsService = vaultsService;
+        _keepsService = keepsService;
     }
 
     internal VaultKeep CreateVaultKeep(VaultKeep vaultKeepData, string userId)
@@ -29,7 +31,7 @@ public class VaultKeepsService
     }
 
 
-    internal void RemoveKeepFromVault(string vaultKeepId, int keepId, string userId)
+    internal void RemoveKeepFromVault(string vaultKeepId, string userId)
     {
         VaultKeep vaultKeep = GetVaultKeepById(vaultKeepId);
         if (vaultKeep == null)
@@ -40,7 +42,7 @@ public class VaultKeepsService
         {
             throw new Exception("You can't remove a keep from a vault you don't own!");
         }
-        _repository.RemoveKeepFromVault(vaultKeepId, keepId, userId);
+        _repository.RemoveKeepFromVault(vaultKeepId, userId);
 
     }
 

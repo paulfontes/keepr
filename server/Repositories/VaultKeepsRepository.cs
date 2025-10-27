@@ -70,16 +70,23 @@ public class VaultKeepsRepository
             vaultkeep.KeepId = keep.Id;
             vaultkeep.CreatorId = creator.Id;
             return vaultkeep;
-        }, new { vaultKeepId }).FirstOrDefault();
+        }, new { vaultKeepId }).SingleOrDefault();
         return vaultkeep;
     }
 
-    internal void RemoveKeepFromVault(string vaultKeepId, int keepId, string userId)
+    internal void RemoveKeepFromVault(string vaultKeepId, string userId)
     {
         string sql = @"
         DELETE FROM vaultkeeps
-        WHERE id = @vaultKeepId AND keep_id = @keepId AND creator_id = @userId
+        WHERE id = @vaultKeepId AND creator_id = @userId LIMIT 1
         ;";
-        _db.Execute(sql, new { vaultKeepId, keepId, userId });
+        int rowsAffected = _db.Execute(sql, new { vaultKeepId, userId });
+
+        if (rowsAffected != 1)
+        {
+            throw new Exception("Multiple rows of data may have been messed with!");
+        }
+
+
     }
 }
