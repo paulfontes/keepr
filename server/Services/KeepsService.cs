@@ -58,9 +58,27 @@ public class KeepsService
 
     }
 
-    internal List<Keep> GetKeepsInPublicVault(int vaultId)
+    internal List<Keep> GetKeepsInPublicVault(int vaultId, Vault vault, string userId)
     {
         List<Keep> keeps = _repository.GetKeepsInPublicVault(vaultId);
+        if (vault.IsPrivate == true)
+        {
+            if (vault.IsPrivate == true && vault.CreatorId == userId)
+            {
+                return keeps;
+            }
+            throw new Exception("You do not have access to this Vault's Keeps");
+        }
         return keeps;
     }
+
+    // internal List<Keep> GetKeepsInPrivateVault(int privateVaultId, Vault vault, string userId)
+    // {
+    //     if (vault.IsPrivate == false && vault.CreatorId != userId)
+    //     {
+    //         throw new Exception("You do not have access to this Vault's Keeps");
+    //     }
+    //     List<Keep> keeps = _repository.GetKeepsInPrivateVault(privateVaultId);
+    //     return keeps;
+    // }
 }
