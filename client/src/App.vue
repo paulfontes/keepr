@@ -8,6 +8,7 @@ import { computed } from 'vue';
 import { AppState } from './AppState.js';
 import KeepDetails from './components/KeepDetails.vue';
 import CreateKeep from './components/CreateKeep.vue';
+import CreateVault from './components/CreateVault.vue';
 
 
 
@@ -27,6 +28,9 @@ import CreateKeep from './components/CreateKeep.vue';
   </ModalWrapper>
   <ModalWrapper modalId="create-keep">
     <CreateKeep />
+  </ModalWrapper>
+  <ModalWrapper modalId="create-vault">
+    <CreateVault />
   </ModalWrapper>
 </template>
 

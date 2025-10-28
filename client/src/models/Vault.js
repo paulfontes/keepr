@@ -1,4 +1,4 @@
-export class Keep {
+export class Vault {
     constructor(data) {
         this.id = data.id
         this.createdAt = new Date(data.createdAt)
@@ -6,9 +6,8 @@ export class Keep {
         this.name = data.name
         this.description = data.description
         this.img = data.img
-        this.views = data.views
+        this.isPrivate = data.isPrivate
         this.creatorId = data.creatorId
         this.creator = data.creator
-        this.kept = data.kept
     }
 }

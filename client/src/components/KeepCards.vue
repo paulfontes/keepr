@@ -9,6 +9,7 @@ import { keepsService } from '@/services/KeepsService.js';
 
 const keeps = computed(() => AppState.keeps)
 const activeKeep = computed(() => AppState.activeKeep)
+const account = computed(() => AppState.account)
 
 
 async function getKeepById(keepId) {
@@ -30,6 +31,9 @@ async function getKeepById(keepId) {
         <div class="container">
 
             <div class="keep-data row">
+                <!-- <div class="delete-button">
+                    <button v-if="account" class="btn btn-outline-red"><i class="mdi mdi-delete"></i></button>
+                </div> -->
                 <img @click="getKeepById(keep.id)" :src="keep.img" class="keep-img p-0" alt="" data-bs-toggle="modal"
                     data-bs-target="#keep-details">
                 <div class="keep-info d-flex">
@@ -48,6 +52,12 @@ async function getKeepById(keepId) {
 
 
 <style lang="scss" scoped>
+.delete-button {
+    position: absolute;
+    top: 10px;
+
+}
+
 .keep-img {
     border-radius: 5px;
     box-shadow: 0px 2px 5px rgb(109, 109, 109);
