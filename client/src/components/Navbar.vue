@@ -33,7 +33,7 @@ watch(theme, () => {
             <ul class="dropdown-menu">
               <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#create-keep">new keep</a>
               </li>
-              <li><a class="dropdown-item" href="#">new vault</a></li>
+              <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#create-vault">new vault</a></li>
             </ul>
           </div>
         </b>
