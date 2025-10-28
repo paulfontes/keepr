@@ -72,6 +72,13 @@ public class KeepsService
         return keeps;
     }
 
+    internal Keep increaseKeepViews(Keep keep)
+    {
+        keep.Views++;
+        _repository.UpdateKeep(keep);
+        return keep;
+    }
+
     // internal List<Keep> GetKeepsInPrivateVault(int privateVaultId, Vault vault, string userId)
     // {
     //     if (vault.IsPrivate == false && vault.CreatorId != userId)

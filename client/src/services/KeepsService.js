@@ -14,6 +14,7 @@ class KeepsService {
         const response = await api.get(`api/keeps/${keepId}`)
         logger.log(response.data)
         AppState.activeKeep = new Keep(response.data)
+        // AppState.activeKeep.views++
 
 
     }

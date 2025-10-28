@@ -88,7 +88,8 @@ public class KeepsRepository
         keeps
         SET
         name = @Name,
-        description = @Description
+        description = @Description,
+        views = @Views
         WHERE id = @Id LIMIT 1
         ;";
 
