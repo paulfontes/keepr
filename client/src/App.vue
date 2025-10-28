@@ -9,6 +9,8 @@ import { AppState } from './AppState.js';
 import KeepDetails from './components/KeepDetails.vue';
 import CreateKeep from './components/CreateKeep.vue';
 import CreateVault from './components/CreateVault.vue';
+import VaultKeepCard from './components/VaultKeepCards.vue';
+import VaultKeepDetails from './components/VaultKeepDetails.vue';
 
 
 
@@ -31,6 +33,9 @@ import CreateVault from './components/CreateVault.vue';
   </ModalWrapper>
   <ModalWrapper modalId="create-vault">
     <CreateVault />
+  </ModalWrapper>
+  <ModalWrapper modalId="vault-keep-details">
+    <VaultKeepDetails />
   </ModalWrapper>
 </template>
 

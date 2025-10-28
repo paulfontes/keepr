@@ -15,7 +15,7 @@ defineProps({
                     <button class="btn" title="close modal fs-5" data-bs-dismiss="modal"><i
                             class="mdi mdi-close"></i></button>
                 </div> -->
-                <div class="modal-body">
+                <div class="modal-body p-0">
                     <slot>
 
                     </slot>

@@ -1,6 +1,7 @@
 <script setup>
 import { AppState } from '@/AppState.js';
 import KeepCards from '@/components/KeepCards.vue';
+import VaultKeepCards from '@/components/VaultKeepCards.vue';
 import { vaultsService } from '@/services/VaultsService.js';
 import { logger } from '@/utils/Logger.js';
 import { Pop } from '@/utils/Pop.js';
@@ -58,7 +59,7 @@ async function getKeepsInVault() {
                 <h4 class="border bg-purple rounded num-keeps">{{ keeps.length }} Keeps</h4>
             </div>
             <div v-for="keep in keeps" :key="keep.id" class="col-3 masonry-container">
-                <KeepCards />
+                <VaultKeepCards />
             </div>
         </section>
     </div>

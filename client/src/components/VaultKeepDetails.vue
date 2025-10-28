@@ -25,6 +25,18 @@ async function getMyVaults() {
     }
 }
 
+async function deleteKeep(keepId) {
+    try {
+        await keepsService.deleteKeep(keepId)
+    }
+    catch (error) {
+        Pop.error(error);
+        logger.log(error)
+    }
+}
+
+
+
 </script>
 
 
@@ -49,18 +61,9 @@ async function getMyVaults() {
                     <div class="d-flex text-end mt-5">
                         <div class="col-6 d-flex justify-content-between">
 
-                            <button v-if="account" @click="getMyVaults" class="btn btn-secondary dropdown-toggle"
-                                type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Pick a Vault
-                            </button>
-                            <ul class="dropdown-menu">
-
-                                <div v-for="vault in vaults" :key="vault.id">
-                                    <li><a class="dropdown-item">{{ vault.name }}</a></li>
-                                </div>
-                            </ul>
-
-                            <button v-if="account">Save</button>
+                            <button class="btn btn-outline-red" v-if="account" @click="deleteKeep(activeKeep.id)"><i
+                                    class="mdi mdi-diameter-variant"></i>
+                                Remove</button>
                         </div>
                         <div class="col-6 text-end" data-bs-dismiss="modal">
                             <RouterLink :to="{ name: 'Profile', params: { profileId: activeKeep.creatorId } }">
@@ -81,6 +84,7 @@ async function getMyVaults() {
     height: 400px;
     display: flex;
     align-items: center;
+    padding: 0;
 }
 
 .modal-profile-pic {
