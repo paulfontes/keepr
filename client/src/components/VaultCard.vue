@@ -10,11 +10,14 @@ const vaults = computed(() => AppState.vaults)
 
 
 <template>
+
     <section class="row">
         <div v-for="vault in vaults" :id="vault.id" class="col-3 position-relative">
-            <img :src="vault.img" alt="" class="img-fluid vault-img">
-            <h4 class="vault-info">{{ vault.name }}</h4>
-            <p v-if="vault.isPrivate" class="is-private-info"><i class="mdi mdi-lock"></i></p>
+            <RouterLink :to="{ name: 'Vault', params: { vaultId: vault.id } }">
+                <img :src="vault.img" alt="" class="img-fluid vault-img">
+                <h4 class="vault-info">{{ vault.name }}</h4>
+                <p v-if="vault.isPrivate" class="is-private-info"><i class="mdi mdi-lock"></i></p>
+            </RouterLink>
         </div>
 
     </section>
