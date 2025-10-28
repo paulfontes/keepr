@@ -3,11 +3,29 @@ import { AppState } from '@/AppState.js';
 import { profilesService } from '@/services/ProfilesService.js';
 import { logger } from '@/utils/Logger.js';
 import { Pop } from '@/utils/Pop.js';
-import { computed } from 'vue';
+import { computed, onMounted } from 'vue';
+import { useRoute } from 'vue-router';
 
 
 const keeps = computed(() => AppState.keeps)
-const account = computed(() => AppState.account)
+const profile = computed(() => AppState.account)
+const activeKeep = computed(() => AppState.activeKeep)
+
+const route = useRoute()
+
+onMounted(() => {
+    getProfileById()
+})
+
+async function getProfileById() {
+    try {
+        await profilesService.getProfile(route.params.profileId)
+    }
+    catch (error) {
+        Pop.error(error);
+        logger.log(error)
+    }
+}
 
 </script>
 
@@ -16,13 +34,13 @@ const account = computed(() => AppState.account)
     <div class="container">
         <section class="row justify-content-center my-4">
             <div class="col-10">
-                <img :src="account.coverImg" alt="" class="img-fluid cover-img">
+                <img :src="profile.coverImg" alt="" class="img-fluid cover-img">
             </div>
             <div class="col-12 text-center">
-                <img :src="account.picture" alt="" class="img-fluid profile-img">
+                <img :src="profile.picture" alt="" class="img-fluid profile-img">
             </div>
             <div class="col-12">
-                <h2 class="text-center mt-2">{{ account.name }}</h2>
+                <h2 class="text-center mt-2">{{ profile.name }}</h2>
             </div>
             <div class="col-12 text-center">
                 <p>5 Vaults | 21 Keeps</p>

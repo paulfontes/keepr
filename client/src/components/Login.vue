@@ -5,6 +5,7 @@ import { AuthService } from '../services/AuthService.js';
 
 const identity = computed(() => AppState.identity)
 const account = computed(() => AppState.account)
+const activeKeep = computed(() => AppState.activeKeep)
 
 function login() {
   AuthService.loginWithRedirect()
@@ -30,7 +31,7 @@ function logout() {
         </div>
         <div class="dropdown-menu dropdown-menu-sm-end dropdown-menu-start p-0" role="menu" title="account menu">
           <div class="list-group">
-            <RouterLink :to="{ name: 'Profile' }">
+            <RouterLink v-if="account" :to="{ name: 'Profile', params: { profileId: account.id } }">
               <div class="list-group-item dropdown-item list-group-item-action">
                 Profile Account
               </div>

@@ -8,12 +8,13 @@ import { keepsService } from '@/services/KeepsService.js';
 
 
 const keeps = computed(() => AppState.keeps)
+const activeKeep = computed(() => AppState.activeKeep)
 
 
 async function getKeepById(keepId) {
     try {
-
         await keepsService.getKeepById(keepId)
+
     }
     catch (error) {
         Pop.error(error);
