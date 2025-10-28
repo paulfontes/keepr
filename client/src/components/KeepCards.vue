@@ -2,10 +2,24 @@
 import { AppState } from '@/AppState.js';
 import { computed } from 'vue';
 import ModalWrapper from './ModalWrapper.vue';
-
+import { Pop } from '@/utils/Pop.js';
+import { logger } from '@/utils/Logger.js';
+import { keepsService } from '@/services/KeepsService.js';
 
 
 const keeps = computed(() => AppState.keeps)
+
+
+async function getKeepById(keepId) {
+    try {
+
+        await keepsService.getKeepById(keepId)
+    }
+    catch (error) {
+        Pop.error(error);
+        logger.log(error)
+    }
+}
 </script>
 
 
@@ -15,7 +29,8 @@ const keeps = computed(() => AppState.keeps)
         <div class="container">
 
             <div class="keep-data row">
-                <img :src="keep.img" class="keep-img p-0" alt="" data-bs-toggle="modal" data-bs-target="#keep-details">
+                <img @click="getKeepById(keep.id)" :src="keep.img" class="keep-img p-0" alt="" data-bs-toggle="modal"
+                    data-bs-target="#keep-details">
                 <div class="keep-info d-flex">
                     <div>
                         <h5>{{ keep.name }}</h5>

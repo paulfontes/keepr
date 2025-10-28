@@ -54,6 +54,7 @@ public class KeepsRepository
         accounts.*
         FROM keeps
         JOIN accounts ON accounts.id = keeps.creator_id
+        ORDER BY keeps.created_at ASC
         ;";
         List<Keep> keeps = _db.Query(sql, (Keep keep, Creator creator) =>
         {
