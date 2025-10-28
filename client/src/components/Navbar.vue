@@ -1,15 +1,19 @@
 <script setup>
-import { ref, watch } from 'vue';
+import { computed, ref, watch } from 'vue';
 import { loadState, saveState } from '../utils/Store.js';
 import Login from './Login.vue';
+import { AppState } from '@/AppState.js';
 
 const theme = ref(loadState('theme') || 'light')
+const account = computed(() => AppState.account)
 
 
 watch(theme, () => {
   document.documentElement.setAttribute('data-bs-theme', theme.value)
   saveState('theme', theme.value)
 }, { immediate: true })
+
+
 
 </script>
 
@@ -19,8 +23,20 @@ watch(theme, () => {
       <RouterLink :to="{ name: 'Home' }" class="d-flex align-items-center">
         <b class="ms-5 fs-5 selectable">Home</b>
       </RouterLink>
-      <div class="col-md-3">
-        <b class="fs-5 selectable">Create<i class="mdi mdi-triangle-small-down"></i></b>
+      <div v-if="account" class="col-md-3">
+        <b class="fs-5 selectable">
+          <div class="dropdown">
+            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+              aria-expanded="false">
+              <b>Create</b>
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#create-keep">new keep</a>
+              </li>
+              <li><a class="dropdown-item" href="#">new vault</a></li>
+            </ul>
+          </div>
+        </b>
       </div>
       <!-- collapse button -->
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-links"

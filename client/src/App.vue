@@ -7,6 +7,7 @@ import KeepCard from './components/KeepCards.vue';
 import { computed } from 'vue';
 import { AppState } from './AppState.js';
 import KeepDetails from './components/KeepDetails.vue';
+import CreateKeep from './components/CreateKeep.vue';
 
 
 
@@ -23,6 +24,9 @@ import KeepDetails from './components/KeepDetails.vue';
   </footer>
   <ModalWrapper modalId="keep-details">
     <KeepDetails />
+  </ModalWrapper>
+  <ModalWrapper modalId="create-keep">
+    <CreateKeep />
   </ModalWrapper>
 </template>
 

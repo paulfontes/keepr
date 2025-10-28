@@ -17,6 +17,11 @@ class KeepsService {
 
 
     }
+    async createKeep(keepData) {
+        const response = await api.post('api/keeps', keepData)
+        const keep = new Keep(response.data)
+        AppState.keeps.unshift(keep)
+    }
 
     async keepHandler(response) {
         const keeps = response.data.map((keep) => new Keep(keep))
