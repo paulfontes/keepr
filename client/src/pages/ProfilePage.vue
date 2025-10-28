@@ -8,7 +8,7 @@ import { useRoute } from 'vue-router';
 
 
 const keeps = computed(() => AppState.keeps)
-const profile = computed(() => AppState.account)
+const profile = computed(() => AppState.profile)
 const activeKeep = computed(() => AppState.activeKeep)
 
 const route = useRoute()
@@ -31,7 +31,7 @@ async function getProfileById() {
 
 
 <template>
-    <div class="container">
+    <div v-if="profile" :key="profile.id" class="container">
         <section class="row justify-content-center my-4">
             <div class="col-10">
                 <img :src="profile.coverImg" alt="" class="img-fluid cover-img">
