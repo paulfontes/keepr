@@ -5,13 +5,14 @@ import { AppState } from "@/AppState.js"
 
 class VaultKeepsService {
     async createVaultKeep(activeKeep) {
-        const response = await api.post(`api/vaultkeeps`)
+        const response = await api.post(`api/vaultkeeps`, activeKeep)
         const savedKeep = new SavedKeep(response.data)
         AppState.savedKeeps.push(savedKeep)
     }
     async deleteVaultKeep(vaultKeepId) {
-        const response = await api.delete(`api/vaultkeeps/${vaultKeepId}`)
-        logger.log('DELETED KEEP', response.data)
+        logger.log(vaultKeepId)
+        // const response = await api.delete(`api/vaultkeeps/${vaultKeepId}`)
+        // logger.log('DELETED KEEP', response.data)
     }
 
 }

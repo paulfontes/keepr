@@ -11,13 +11,13 @@ import { useRoute } from 'vue-router';
 
 const activeKeep = computed(() => AppState.activeKeep)
 const account = computed(() => AppState.account)
-const savedKeeps = computed(() => AppState.savedKeeps)
+const savedKeep = computed(() => AppState.savedKeep)
 
 const route = useRoute()
 
-async function deleteVaultKeep(vaultKeepId) {
+async function deleteVaultKeep(savedKeepId) {
     try {
-        await vaultKeepsService.deleteVaultKeep(vaultKeepId)
+        await vaultKeepsService.deleteVaultKeep(savedKeepId)
     }
     catch (error) {
         Pop.error(error);
@@ -25,6 +25,16 @@ async function deleteVaultKeep(vaultKeepId) {
     }
 }
 
+async function getKeepById(keepId) {
+    try {
+        await keepsService.getKeepById(keepId)
+
+    }
+    catch (error) {
+        Pop.error(error);
+        logger.log(error)
+    }
+}
 
 
 </script>
@@ -51,9 +61,8 @@ async function deleteVaultKeep(vaultKeepId) {
                     <div class="d-flex text-end mt-5">
                         <div class="col-6 d-flex justify-content-between">
 
-                            <button class="btn btn-outline-red" v-if="account"
-                                @click="deleteVaultKeep(savedKeeps[0].vaultKeepId)"><i
-                                    class="mdi mdi-diameter-variant"></i>
+                            <button data-bs-dismiss="modal" class="btn btn-outline-red" v-if="account"
+                                @click="deleteVaultKeep(savedKeep)"><i class="mdi mdi-diameter-variant"></i>
                                 Remove</button>
                         </div>
                         <div class="col-6 text-end" data-bs-dismiss="modal">

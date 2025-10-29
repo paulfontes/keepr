@@ -6,7 +6,7 @@ import { vaultKeepsService } from '@/services/VaultKeepsService.js';
 import { vaultsService } from '@/services/VaultsService.js';
 import { logger } from '@/utils/Logger.js';
 import { Pop } from '@/utils/Pop.js';
-import { computed, onMounted } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import { useRoute } from 'vue-router';
 
 
@@ -17,11 +17,19 @@ const vaultKeeps = computed(() => AppState.vaultsKeeps)
 const vaults = computed(() => AppState.vaults)
 
 const route = useRoute()
+const selectedVaultId = ref(null)
 
-
-async function saveKeepToVault(activeKeep) {
+async function saveKeepToVault() {
     try {
-        await vaultKeepsService.createVaultKeep(activeKeep)
+        if (!selectedVaultId.value) {
+            throw new Error('Please select a vault first')
+        }
+        const vaultKeepData = {
+            vaultId: selectedVaultId.value,
+            keepId: activeKeep.value.id
+        }
+        await vaultKeepsService.createVaultKeep(vaultKeepData)
+        Pop.success('Keep saved to vault!')
     }
     catch (error) {
         Pop.error(error);
@@ -29,7 +37,9 @@ async function saveKeepToVault(activeKeep) {
     }
 }
 
-
+async function selectVault(vaultId) {
+    selectedVaultId.value = vaultId
+}
 
 async function getMyVaults() {
     try {
@@ -67,16 +77,22 @@ async function getMyVaults() {
 
                             <button v-if="account" @click="getMyVaults()" class="btn btn-secondary dropdown-toggle"
                                 type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Pick a Vault
+                                {{selectedVaultId ? (vaults.find(v => v.id == selectedVaultId)?.name || 'Pick a Vault')
+                                    : 'Pick a Vault'}}
                             </button>
                             <ul class="dropdown-menu">
-
-                                <div v-for="vault in vaults" :key="vault.id">
-                                    <li><a class="dropdown-item">{{ vault.name }}</a></li>
-                                </div>
+                                <li v-for="vault in vaults" :key="vault.id">
+                                    <a class="dropdown-item" @click="selectVault(vault.id)">
+                                        {{ vault.name }}
+                                        <i v-if="selectedVaultId === vault.id" class="mdi mdi-check"></i>
+                                    </a>
+                                </li>
                             </ul>
 
-                            <button v-if="account" @click="saveKeepToVault(activeKeep)">Save</button>
+                            <button data-bs-dismiss="modal" v-if="account" :disabled="!selectedVaultId"
+                                @click="saveKeepToVault()" class="btn btn-primary ms-2">
+                                Save to Vault
+                            </button>
                         </div>
                         <div class="col-6 text-end" data-bs-dismiss="modal">
                             <RouterLink :to="{ name: 'Profile', params: { profileId: activeKeep.creatorId } }">
