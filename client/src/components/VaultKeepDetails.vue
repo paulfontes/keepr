@@ -65,7 +65,7 @@ async function getKeepById(keepId) {
                         </div>
                     </div>
                     <div class="d-flex text-end mt-5">
-                        <div v-if="vaultKeep.creatorId == account.id" class="col-6 d-flex justify-content-between">
+                        <div v-if="vaultKeep?.creatorId == account?.id" class="col-6 d-flex justify-content-between">
                             <button data-bs-dismiss="modal" class="btn btn-outline-red" @click="deleteVaultKeep()"><i
                                     class="mdi mdi-diameter-variant"></i>
                                 Remove from Vault</button>

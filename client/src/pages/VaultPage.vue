@@ -5,6 +5,7 @@ import VaultKeepCards from '@/components/VaultKeepCards.vue';
 import { vaultsService } from '@/services/VaultsService.js';
 import { logger } from '@/utils/Logger.js';
 import { Pop } from '@/utils/Pop.js';
+import { AxiosError } from 'axios';
 import { computed, onMounted, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 
@@ -18,12 +19,12 @@ const router = useRouter()
 
 
 onMounted(async () => {
-    await getVaultById()
+    await getVaultById() // Wait for vault check first
 })
 
 watch(vaultKeep, async (newVault) => {
     if (newVault) {
-
+        // Only get keeps if we successfully got the vault
         await allSavedKeepsInVault()
     }
 })
@@ -31,20 +32,13 @@ watch(vaultKeep, async (newVault) => {
 async function getVaultById() {
     try {
         await vaultsService.getVaultById(route.params.vaultId)
-        const vault = AppState.vaultKeep
-        if (!vault) {
-            throw new Error('Vault not found')
-
-        }
-
-        if (!account.value || (vault.isPrivate && vault.creatorId !== account.value.id)) {
-            throw new Error('You do not have access to this vault')
-        }
     }
     catch (error) {
-        Pop.error(error.message || 'You do not have access to this vault')
+        Pop.error('You do not have access to this vault')
         logger.log(error)
-        router.push({ name: 'Home' })
+        if (error instanceof AxiosError) {
+            router.push({ name: 'Home' })
+        }
     }
 }
 

@@ -17,7 +17,6 @@ const account = computed(() => AppState.account)
 async function getKeepById(keepId) {
     try {
         await keepsService.getKeepById(keepId)
-        // Set the vaultKeepId in the AppState's activeKeep
         AppState.activeKeep = { ...AppState.activeKeep, vaultKeepId: props.savedKeep.vaultKeepId }
     }
     catch (error) {

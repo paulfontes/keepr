@@ -25,13 +25,8 @@ onMounted(() => {
     getProfileById()
     getProfileVaults()
     getProfileKeeps()
-    getMyVaults()
 })
 
-watch(account, () => {
-
-}
-)
 async function getProfileById() {
     try {
         await profilesService.getProfile(route.params.profileId)

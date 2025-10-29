@@ -1,4 +1,4 @@
-export class vaultKeep {
+export class VaultKeep {
     constructor(data) {
         this.id = data.id
         this.createdAt = new Date(this.createdAt)

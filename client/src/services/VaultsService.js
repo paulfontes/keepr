@@ -3,7 +3,7 @@ import { api } from "./AxiosService.js"
 import { Vault } from "@/models/Vault.js"
 import { AppState } from "@/AppState.js"
 import { Keep, SavedKeep } from "@/models/Keep.js"
-import { vaultKeep } from "@/models/VaultKeep.js"
+import { VaultKeep } from "@/models/VaultKeep.js"
 
 class VaultsService {
     async deleteVault(vaultId) {
@@ -18,6 +18,7 @@ class VaultsService {
         AppState.vaults.push(vault)
     }
     async getVaultById(vaultId) {
+        AppState.vaultKeep = null
         const response = await api.get(`api/vaults/${vaultId}`)
         const vault = new Vault(response.data)
         AppState.vaultKeep = vault
