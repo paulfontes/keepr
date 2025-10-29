@@ -6,6 +6,11 @@ import { api } from './AxiosService.js'
 import { SavedKeep } from '@/models/Keep.js'
 
 class AccountService {
+  async updateAccount(updateData) {
+    const response = await api.put('/account', updateData)
+    const updatedData = new Account(response.data)
+    AppState.account = updateData
+  }
   async getAccount() {
     try {
       const res = await api.get('/account')
