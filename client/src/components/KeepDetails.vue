@@ -2,6 +2,8 @@
 import { AppState } from '@/AppState.js';
 import { accountService } from '@/services/AccountService.js';
 import { keepsService } from '@/services/KeepsService.js';
+import { vaultKeepsService } from '@/services/VaultKeepsService.js';
+import { vaultsService } from '@/services/VaultsService.js';
 import { logger } from '@/utils/Logger.js';
 import { Pop } from '@/utils/Pop.js';
 import { computed, onMounted } from 'vue';
@@ -10,8 +12,22 @@ import { useRoute } from 'vue-router';
 
 const activeKeep = computed(() => AppState.activeKeep)
 const account = computed(() => AppState.account)
+const savedKeeps = computed(() => AppState.savedKeeps)
+const vaultKeeps = computed(() => AppState.vaultsKeeps)
 const vaults = computed(() => AppState.vaults)
 
+const route = useRoute()
+
+
+async function saveKeepToVault(activeKeep) {
+    try {
+        await vaultKeepsService.createVaultKeep(activeKeep)
+    }
+    catch (error) {
+        Pop.error(error);
+        logger.log(error)
+    }
+}
 
 
 
@@ -49,7 +65,7 @@ async function getMyVaults() {
                     <div class="d-flex text-end mt-5">
                         <div class="col-6 d-flex justify-content-between">
 
-                            <button v-if="account" @click="getMyVaults" class="btn btn-secondary dropdown-toggle"
+                            <button v-if="account" @click="getMyVaults()" class="btn btn-secondary dropdown-toggle"
                                 type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 Pick a Vault
                             </button>
@@ -60,7 +76,7 @@ async function getMyVaults() {
                                 </div>
                             </ul>
 
-                            <button v-if="account">Save</button>
+                            <button v-if="account" @click="saveKeepToVault(activeKeep)">Save</button>
                         </div>
                         <div class="col-6 text-end" data-bs-dismiss="modal">
                             <RouterLink :to="{ name: 'Profile', params: { profileId: activeKeep.creatorId } }">

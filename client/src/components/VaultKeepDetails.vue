@@ -2,6 +2,7 @@
 import { AppState } from '@/AppState.js';
 import { accountService } from '@/services/AccountService.js';
 import { keepsService } from '@/services/KeepsService.js';
+import { vaultKeepsService } from '@/services/VaultKeepsService.js';
 import { logger } from '@/utils/Logger.js';
 import { Pop } from '@/utils/Pop.js';
 import { computed, onMounted } from 'vue';
@@ -10,24 +11,13 @@ import { useRoute } from 'vue-router';
 
 const activeKeep = computed(() => AppState.activeKeep)
 const account = computed(() => AppState.account)
-const vaults = computed(() => AppState.vaults)
+const savedKeeps = computed(() => AppState.savedKeeps)
 
+const route = useRoute()
 
-
-
-async function getMyVaults() {
+async function deleteVaultKeep() {
     try {
-        await accountService.getMyVaults()
-    }
-    catch (error) {
-        Pop.error(error);
-        logger.log(error)
-    }
-}
-
-async function deleteKeep(keepId) {
-    try {
-        await keepsService.deleteKeep(keepId)
+        await vaultKeepsService.deleteVaultKeep(route.params.vaultId)
     }
     catch (error) {
         Pop.error(error);
@@ -61,7 +51,7 @@ async function deleteKeep(keepId) {
                     <div class="d-flex text-end mt-5">
                         <div class="col-6 d-flex justify-content-between">
 
-                            <button class="btn btn-outline-red" v-if="account" @click="deleteKeep(activeKeep.id)"><i
+                            <button class="btn btn-outline-red" v-if="account" @click="deleteVaultKeep()"><i
                                     class="mdi mdi-diameter-variant"></i>
                                 Remove</button>
                         </div>

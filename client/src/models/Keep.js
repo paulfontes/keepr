@@ -12,3 +12,10 @@ export class Keep {
         this.kept = data.kept
     }
 }
+
+export class SavedKeep extends Keep {
+    constructor(data) {
+        super(data)
+        this.vaultKeepId = data.vaultKeepId
+    }
+}

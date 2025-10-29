@@ -7,7 +7,7 @@ import { logger } from '@/utils/Logger.js';
 import { keepsService } from '@/services/KeepsService.js';
 
 
-const keeps = computed(() => AppState.keeps)
+const savedKeeps = computed(() => AppState.savedKeeps)
 const activeKeep = computed(() => AppState.activeKeep)
 const account = computed(() => AppState.account)
 
@@ -27,22 +27,22 @@ async function getKeepById(keepId) {
 
 <template>
 
-    <div v-for="keep in keeps" :id="keep.id">
+    <div v-for="savedKeep in savedKeeps" :id="savedKeep.id">
         <div class="container">
 
             <div class="keep-data row">
                 <!-- <div class="delete-button">
                     <button v-if="account" class="btn btn-outline-red"><i class="mdi mdi-delete"></i></button>
                 </div> -->
-                <img @click="getKeepById(keep.id)" :src="keep.img" class="keep-img p-0" alt="" data-bs-toggle="modal"
-                    data-bs-target="#vault-keep-details">
+                <img @click="getKeepById(savedKeep.id)" :src="savedKeep.img" class="keep-img p-0" alt=""
+                    data-bs-toggle="modal" data-bs-target="#vault-keep-details">
                 <div class="keep-info d-flex">
                     <div>
-                        <h5>{{ keep.name }}</h5>
+                        <h5>{{ savedKeep.name }}</h5>
                     </div>
                     <div class="profile-img-location">
-                        <img class="profile-img" :src="keep.creator.picture" :alt="'Picture of' + keep.creator.name"
-                            :title="keep.creator.name">
+                        <img class="profile-img" :src="savedKeep.creator.picture"
+                            :alt="'Picture of' + savedKeep.creator.name" :title="savedKeep.creator.name">
                     </div>
                 </div>
             </div>

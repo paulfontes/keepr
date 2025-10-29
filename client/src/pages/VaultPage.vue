@@ -9,14 +9,27 @@ import { computed, onMounted } from 'vue';
 import { useRoute } from 'vue-router';
 
 const vaultKeep = computed(() => AppState.vaultKeep)
-const vault = computed(() => AppState.vaults)
-const keeps = computed(() => AppState.keeps)
+const savedKeeps = computed(() => AppState.savedKeeps)
+
+
 const route = useRoute()
 
 onMounted(() => {
     getVaultById()
-    getKeepsInVault()
+    allSavedKeepsInVault()
 })
+
+// async function getAllKeepsInPublicVault() {
+//     try {
+//         await vaultsService.getAllKeepsInPublicVault(route.params.vaultId)
+//     }
+//     catch (error){
+//       Pop.error(error);
+//       logger.log(error)
+//     }
+// }
+
+
 
 async function getVaultById() {
     try {
@@ -28,9 +41,9 @@ async function getVaultById() {
     }
 }
 
-async function getKeepsInVault() {
+async function allSavedKeepsInVault() {
     try {
-        await vaultsService.getKeepsInVault(route.params.vaultId)
+        await vaultsService.savedKeeps(route.params.vaultId)
     }
     catch (error) {
         Pop.error(error);
@@ -56,9 +69,9 @@ async function getKeepsInVault() {
                 </div>
             </div>
             <div class="col-12 text-center my-5 d-flex justify-content-center">
-                <h4 class="border bg-purple rounded num-keeps">{{ keeps.length }} Keeps</h4>
+                <h4 class="border bg-purple rounded num-keeps">{{ savedKeeps.length }} Keeps</h4>
             </div>
-            <div v-for="keep in keeps" :key="keep.id" class="col-3 masonry-container">
+            <div v-for="savedKeep in savedKeeps" :key="savedKeep.id" class="col-3 masonry-container">
                 <VaultKeepCards />
             </div>
         </section>

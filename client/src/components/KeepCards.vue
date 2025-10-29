@@ -12,6 +12,17 @@ const activeKeep = computed(() => AppState.activeKeep)
 const account = computed(() => AppState.account)
 
 
+async function deleteKeep(keepId) {
+    try {
+        await keepsService.deleteKeep(keepId)
+    }
+    catch (error) {
+        Pop.error(error);
+        logger.log(error)
+    }
+}
+
+
 async function getKeepById(keepId) {
     try {
         await keepsService.getKeepById(keepId)
@@ -31,9 +42,10 @@ async function getKeepById(keepId) {
         <div class="container">
 
             <div class="keep-data row">
-                <!-- <div class="delete-button">
-                    <button v-if="account" class="btn btn-outline-red"><i class="mdi mdi-delete"></i></button>
-                </div> -->
+                <div class="delete-button">
+                    <button v-if="account.id == keep.creatorId" @click="deleteKeep(keep.id)"
+                        class="btn btn-outline-red"><i class="mdi mdi-delete"></i></button>
+                </div>
                 <img @click="getKeepById(keep.id)" :src="keep.img" class="keep-img p-0" alt="" data-bs-toggle="modal"
                     data-bs-target="#keep-details">
                 <div class="keep-info d-flex">
