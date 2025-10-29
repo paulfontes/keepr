@@ -9,6 +9,8 @@ class VaultsService {
     async deleteVault(vaultId) {
         const response = await api.delete(`api/vaults/${vaultId}`)
         logger.log(`Vault ${vaultId} has been deleted! `)
+        const index = AppState.vaults.findIndex((r) => r.id == vaultId)
+        AppState.vaults.splice(index, 1)
     }
     async createVault(vaultData) {
         const response = await api.post('api/vaults', vaultData)

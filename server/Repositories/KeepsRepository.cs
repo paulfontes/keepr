@@ -110,10 +110,10 @@ public class KeepsRepository
         ;";
         int rowsAffected = _db.Execute(sql, new { keepId });
 
-        if (rowsAffected != 1)
-        {
-            throw new Exception("Multiple rows of data may have been messed with!");
-        }
+        // if (rowsAffected != 1)
+        // {
+        //     throw new Exception("Multiple rows of data may have been messed with!");
+        // }
 
     }
 
