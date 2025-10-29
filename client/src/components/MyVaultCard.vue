@@ -9,7 +9,7 @@ import { computed } from 'vue';
 
 
 
-const vaults = computed(() => AppState.vaults)
+const myVaults = computed(() => AppState.myVaults)
 const account = computed(() => AppState.account)
 
 
@@ -31,13 +31,13 @@ async function deleteVault(vaultId) {
 <template>
 
     <section class="row">
-        <div v-for="vault in vaults" :id="vault.id" class="col-3 position-relative">
-            <button v-if="account?.id == vault.creatorId" @click="deleteVault(vault.id)"
+        <div v-for="myVault in myVaults" :id="myVault.id" class="col-3 position-relative">
+            <button v-if="account?.id == myVault.creatorId" @click="deleteVault(myVault.id)"
                 class="btn btn-outline-red position-absolute"><i class="mdi mdi-delete-circle-outline"></i></button>
-            <RouterLink :to="{ name: 'Vault', params: { vaultId: vault.id } }">
-                <img :src="vault.img" alt="" class="img-fluid vault-img">
-                <h4 class="vault-info">{{ vault.name }}</h4>
-                <p v-if="vault.isPrivate" class="is-private-info"><i class="mdi mdi-lock"></i></p>
+            <RouterLink :to="{ name: 'Vault', params: { vaultId: myVault.id } }">
+                <img :src="myVault.img" alt="" class="img-fluid myVault-img">
+                <h4 class="myVault-info">{{ myVault.name }}</h4>
+                <p v-if="myVault.isPrivate" class="is-private-info"><i class="mdi mdi-lock"></i></p>
             </RouterLink>
         </div>
 
@@ -52,7 +52,7 @@ async function deleteVault(vaultId) {
 
 }
 
-.vault-img {
+.myVault-img {
     border-radius: 5px;
     box-shadow: 0px 2px 5px rgb(109, 109, 109);
     width: 100%;
@@ -63,11 +63,11 @@ async function deleteVault(vaultId) {
 
 }
 
-.vault-data {
+.myVault-data {
     position: relative;
 }
 
-.vault-info {
+.myVault-info {
     color: white;
     text-shadow: 2px 2px 2px black;
     z-index: 100px;

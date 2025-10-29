@@ -1,7 +1,9 @@
 <script setup>
 import { AppState } from '@/AppState.js';
 import KeepCards from '@/components/KeepCards.vue';
+import MyVaultCard from '@/components/MyVaultCard.vue';
 import VaultCard from '@/components/VaultCard.vue';
+import { accountService } from '@/services/AccountService.js';
 import { profilesService } from '@/services/ProfilesService.js';
 import { logger } from '@/utils/Logger.js';
 import { Pop } from '@/utils/Pop.js';
@@ -12,7 +14,9 @@ import { useRoute } from 'vue-router';
 const keeps = computed(() => AppState.keeps)
 const profile = computed(() => AppState.profile)
 const activeKeep = computed(() => AppState.activeKeep)
-const vaults = computed(() => AppState.vaults)
+const myVaults = computed(() => AppState.myVaults)
+const account = computed(() => AppState.account)
+
 
 const route = useRoute()
 
@@ -20,6 +24,7 @@ onMounted(() => {
     getProfileById()
     getProfileKeeps()
     getProfileVaults()
+    getMyVaults()
 })
 
 async function getProfileById() {
@@ -52,6 +57,16 @@ async function getProfileVaults() {
     }
 }
 
+async function getMyVaults() {
+    try {
+        await accountService.getMyVaults()
+    }
+    catch (error) {
+        Pop.error(error);
+        logger.log(error)
+    }
+}
+
 </script>
 
 
@@ -67,10 +82,17 @@ async function getProfileVaults() {
             <div class="col-12">
                 <h2 class="text-center mt-2">{{ profile.name }}</h2>
             </div>
-            <div class="col-12 text-center">
+            <div v-if="route.params.profileId == account.id" class="col-12 text-center">
+                <p> {{ AppState.myVaults.length }} Vaults | {{ AppState.keeps.length }} Keeps</p>
+            </div>
+            <div v-else class="col-12 text-center">
                 <p> {{ AppState.vaults.length }} Vaults | {{ AppState.keeps.length }} Keeps</p>
             </div>
-            <div class="col-12">
+            <div v-if="route.params.profileId == account.id" class="col-12">
+                <h1>Vaults</h1>
+                <MyVaultCard />
+            </div>
+            <div v-else class="col-12">
                 <h1>Vaults</h1>
                 <VaultCard />
             </div>
