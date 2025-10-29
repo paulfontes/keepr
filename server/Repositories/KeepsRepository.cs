@@ -105,6 +105,7 @@ public class KeepsRepository
     internal void DeleteKeep(int keepId)
     {
         string sql = @"
+        DELETE FROM vaultkeeps WHERE keep_id = @keepId;
         DELETE FROM keeps WHERE id = @keepId LIMIT 1
         ;";
         int rowsAffected = _db.Execute(sql, new { keepId });

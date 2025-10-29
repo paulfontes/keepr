@@ -15,9 +15,9 @@ const savedKeeps = computed(() => AppState.savedKeeps)
 
 const route = useRoute()
 
-async function deleteVaultKeep() {
+async function deleteVaultKeep(vaultKeepId) {
     try {
-        await vaultKeepsService.deleteVaultKeep(route.params.vaultId)
+        await vaultKeepsService.deleteVaultKeep(vaultKeepId)
     }
     catch (error) {
         Pop.error(error);
@@ -51,7 +51,8 @@ async function deleteVaultKeep() {
                     <div class="d-flex text-end mt-5">
                         <div class="col-6 d-flex justify-content-between">
 
-                            <button class="btn btn-outline-red" v-if="account" @click="deleteVaultKeep()"><i
+                            <button class="btn btn-outline-red" v-if="account"
+                                @click="deleteVaultKeep(savedKeeps[0].vaultKeepId)"><i
                                     class="mdi mdi-diameter-variant"></i>
                                 Remove</button>
                         </div>

@@ -55,6 +55,9 @@ async function deleteVault(vaultId) {
     box-shadow: 0px 2px 5px rgb(109, 109, 109);
     width: 100%;
     margin-bottom: 20px;
+    height: 200px;
+    object-fit: cover;
+    object-position: center;
 
 }
 
