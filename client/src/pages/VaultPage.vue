@@ -17,25 +17,34 @@ const router = useRouter()
 
 
 
-onMounted(() => {
-    getVaultById()
-    allSavedKeepsInVault()
+onMounted(async () => {
+    await getVaultById()
 })
 
-watch(account, (Account) => {
-    if (Account && route.params.profileId == Account.id) {
-        allSavedKeepsInVault()
-        getVaultById()
+watch(vaultKeep, async (newVault) => {
+    if (newVault) {
+
+        await allSavedKeepsInVault()
     }
 })
 
 async function getVaultById() {
     try {
         await vaultsService.getVaultById(route.params.vaultId)
+        const vault = AppState.vaultKeep
+        if (!vault) {
+            throw new Error('Vault not found')
+
+        }
+
+        if (!account.value || (vault.isPrivate && vault.creatorId !== account.value.id)) {
+            throw new Error('You do not have access to this vault')
+        }
     }
     catch (error) {
-        Pop.error(error);
+        Pop.error(error.message || 'You do not have access to this vault')
         logger.log(error)
+        router.push({ name: 'Home' })
     }
 }
 
@@ -44,7 +53,7 @@ async function allSavedKeepsInVault() {
         await vaultsService.savedKeeps(route.params.vaultId)
     }
     catch (error) {
-        Pop.error(error);
+
         logger.log(error)
     }
 }
