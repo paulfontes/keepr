@@ -65,7 +65,7 @@ async function getMyVaults() {
                 <section class="row">
                     <div class="col-12">
                         <span class="me-3">{{ activeKeep.views }} <i class="mdi mdi-eye"></i></span>
-                        <span>10 <i class="mdi mdi-alpha-k fs-3"></i></span>
+                        <span>{{ activeKeep.kept }} <i class="mdi mdi-alpha-k fs-3"></i></span>
                     </div>
                     <div class="modal-body">
                         <div class="col-12 mt-5">
