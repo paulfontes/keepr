@@ -5,20 +5,29 @@ import VaultKeepCards from '@/components/VaultKeepCards.vue';
 import { vaultsService } from '@/services/VaultsService.js';
 import { logger } from '@/utils/Logger.js';
 import { Pop } from '@/utils/Pop.js';
-import { computed, onMounted } from 'vue';
-import { useRoute } from 'vue-router';
+import { computed, onMounted, watch } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
 
 const vaultKeep = computed(() => AppState.vaultKeep)
 const savedKeeps = computed(() => AppState.savedKeeps)
-
+const account = computed(() => AppState.account)
 
 const route = useRoute()
+const router = useRouter()
+
+
 
 onMounted(() => {
     getVaultById()
     allSavedKeepsInVault()
 })
 
+watch(account, (Account) => {
+    if (Account && route.params.profileId == Account.id) {
+        allSavedKeepsInVault()
+        getVaultById()
+    }
+})
 
 async function getVaultById() {
     try {
@@ -61,7 +70,7 @@ async function allSavedKeepsInVault() {
                 <h4 class="border bg-purple rounded num-keeps">{{ savedKeeps.length }} Keeps</h4>
             </div>
             <div class="col-12 masonry-container">
-                <VaultKeepCards v-for="savedKeep in savedKeeps" :key="savedKeep.id" :vaultKeep="savedKeep" />
+                <VaultKeepCards v-for="savedKeep in savedKeeps" :key="savedKeep.id" :savedKeep="savedKeep" />
             </div>
         </section>
     </div>

@@ -11,13 +11,19 @@ import { useRoute } from 'vue-router';
 
 const activeKeep = computed(() => AppState.activeKeep)
 const account = computed(() => AppState.account)
-const savedKeep = computed(() => AppState.savedKeep)
+const vaultKeep = computed(() => AppState.vaultKeep)
+const savedKeeps = computed(() => AppState.savedKeeps)
 
 const route = useRoute()
 
-async function deleteVaultKeep(savedKeepId) {
+async function deleteVaultKeep() {
     try {
-        await vaultKeepsService.deleteVaultKeep(savedKeepId)
+        const vaultKeepId = activeKeep.value.vaultKeepId
+        if (!vaultKeepId) {
+            throw new Error('No vaultKeepId found')
+        }
+        await vaultKeepsService.deleteVaultKeep(vaultKeepId)
+        Pop.success('Keep removed from vault')
     }
     catch (error) {
         Pop.error(error);
@@ -59,11 +65,10 @@ async function getKeepById(keepId) {
                         </div>
                     </div>
                     <div class="d-flex text-end mt-5">
-                        <div class="col-6 d-flex justify-content-between">
-
-                            <button data-bs-dismiss="modal" class="btn btn-outline-red" v-if="account"
-                                @click="deleteVaultKeep(savedKeep)"><i class="mdi mdi-diameter-variant"></i>
-                                Remove</button>
+                        <div v-if="vaultKeep.creatorId == account.id" class="col-6 d-flex justify-content-between">
+                            <button data-bs-dismiss="modal" class="btn btn-outline-red" @click="deleteVaultKeep()"><i
+                                    class="mdi mdi-diameter-variant"></i>
+                                Remove from Vault</button>
                         </div>
                         <div class="col-6 text-end" data-bs-dismiss="modal">
                             <RouterLink :to="{ name: 'Profile', params: { profileId: activeKeep.creatorId } }">

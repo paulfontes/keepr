@@ -7,7 +7,7 @@ import { accountService } from '@/services/AccountService.js';
 import { profilesService } from '@/services/ProfilesService.js';
 import { logger } from '@/utils/Logger.js';
 import { Pop } from '@/utils/Pop.js';
-import { computed, onMounted } from 'vue';
+import { computed, onMounted, watch } from 'vue';
 import { useRoute } from 'vue-router';
 
 
@@ -20,13 +20,18 @@ const account = computed(() => AppState.account)
 
 const route = useRoute()
 
+
 onMounted(() => {
     getProfileById()
-    getProfileKeeps()
     getProfileVaults()
+    getProfileKeeps()
     getMyVaults()
 })
 
+watch(account, () => {
+
+}
+)
 async function getProfileById() {
     try {
         await profilesService.getProfile(route.params.profileId)
@@ -82,13 +87,13 @@ async function getMyVaults() {
             <div class="col-12">
                 <h2 class="text-center mt-2">{{ profile.name }}</h2>
             </div>
-            <div v-if="route.params.profileId == account.id" class="col-12 text-center">
+            <div v-if="account && route.params.profileId == account.id" class="col-12 text-center">
                 <p> {{ AppState.myVaults.length }} Vaults | {{ AppState.keeps.length }} Keeps</p>
             </div>
             <div v-else class="col-12 text-center">
                 <p> {{ AppState.vaults.length }} Vaults | {{ AppState.keeps.length }} Keeps</p>
             </div>
-            <div v-if="route.params.profileId == account.id" class="col-12">
+            <div v-if="account && route.params.profileId == account.id" class="col-12">
                 <h1>Vaults</h1>
                 <MyVaultCard />
             </div>
