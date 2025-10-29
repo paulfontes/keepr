@@ -5,9 +5,8 @@ import { Keep } from "@/models/Keep.js"
 
 class KeepsService {
     async deleteKeep(keepId) {
-        logger.log(keepId)
-        // const response = await api.delete(`/api/keeps/${keepId}`)
-        // logger.log('DELETED KEEP', response.data)
+        const response = await api.delete(`/api/keeps/${keepId}`)
+        logger.log('DELETED KEEP', response.data)
     }
     async getKeeps() {
         AppState.keeps = []

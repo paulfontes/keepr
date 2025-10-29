@@ -6,6 +6,10 @@ import { Keep, SavedKeep } from "@/models/Keep.js"
 import { vaultKeep } from "@/models/VaultKeep.js"
 
 class VaultsService {
+    async deleteVault(vaultId) {
+        const response = await api.delete(`api/vaults/${vaultId}`)
+        logger.log(`Vault ${vaultId} has been deleted! `)
+    }
     async createVault(vaultData) {
         const response = await api.post('api/vaults', vaultData)
         const vault = new Vault(response.data)

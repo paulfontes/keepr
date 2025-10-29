@@ -1,13 +1,25 @@
 <script setup>
 import { AppState } from '@/AppState.js';
+import { vaultsService } from '@/services/VaultsService.js';
+import { logger } from '@/utils/Logger.js';
+import { Pop } from '@/utils/Pop.js';
 import { computed } from 'vue';
 
 
 
 
 const vaults = computed(() => AppState.vaults)
+const account = computed(() => AppState.account)
 
-
+async function deleteVault(vaultId) {
+    try {
+        await vaultsService.deleteVault(vaultId)
+    }
+    catch (error) {
+        Pop.error(error);
+        logger.log(error)
+    }
+}
 
 
 
@@ -18,6 +30,8 @@ const vaults = computed(() => AppState.vaults)
 
     <section class="row">
         <div v-for="vault in vaults" :id="vault.id" class="col-3 position-relative">
+            <button v-if="account.id == vault.creatorId" @click="deleteVault(vault.id)"
+                class="btn btn-outline-red position-absolute"><i class="mdi mdi-delete-circle-outline"></i></button>
             <RouterLink :to="{ name: 'Vault', params: { vaultId: vault.id } }">
                 <img :src="vault.img" alt="" class="img-fluid vault-img">
                 <h4 class="vault-info">{{ vault.name }}</h4>
