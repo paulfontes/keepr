@@ -100,13 +100,17 @@ async function getProfileVaults() {
     border-radius: 5px;
     box-shadow: 0px 2px 5px rgb(109, 109, 109);
     width: 100%;
+    object-fit: cover;
 }
 
 .profile-img {
     border-radius: 50%;
     box-shadow: 0px 2px 5px rgb(109, 109, 109);
+    height: 150px;
     width: 150px;
     margin-top: -75px;
     border: 5px solid white;
+    object-position: top;
+    object-fit: cover;
 }
 </style>

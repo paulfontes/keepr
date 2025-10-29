@@ -102,6 +102,9 @@ async function getMyVaults() {
 .modal-profile-pic {
     height: 50px;
     border-radius: 50%;
+    width: 50px;
+    object-fit: cover;
+    object-position: top;
 }
 
 .modal-img {

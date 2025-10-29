@@ -43,7 +43,7 @@ async function getKeepById(keepId) {
 
             <div class="keep-data row">
                 <div class="delete-button">
-                    <button v-if="account.id == keep.creatorId" @click="deleteKeep(keep.id)"
+                    <button v-if="account?.id == keep.creatorId" @click="deleteKeep(keep.id)"
                         class="btn btn-outline-red"><i class="mdi mdi-delete"></i></button>
                 </div>
                 <img @click="getKeepById(keep.id)" :src="keep.img" class="keep-img p-0" alt="" data-bs-toggle="modal"
@@ -98,5 +98,8 @@ async function getKeepById(keepId) {
 .profile-img {
     height: 50px;
     border-radius: 50%;
+    width: 50px;
+    object-fit: cover;
+    object-position: top;
 }
 </style>

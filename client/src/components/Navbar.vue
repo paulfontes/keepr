@@ -23,10 +23,10 @@ watch(theme, () => {
       <RouterLink :to="{ name: 'Home' }" class="d-flex align-items-center">
         <b class="ms-5 fs-5 selectable">Home</b>
       </RouterLink>
-      <div v-if="account" class="col-md-3">
+      <div v-if="account">
         <b class="fs-5 selectable">
           <div class="dropdown">
-            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+            <a class="btn btn-secondary dropdown-toggle w-100" href="#" role="button" data-bs-toggle="dropdown"
               aria-expanded="false">
               <b>Create</b>
             </a>
@@ -43,7 +43,7 @@ watch(theme, () => {
         aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
         <span class="mdi mdi-menu text-light"></span>
       </button>
-      <div class=" d-flex justify-content-center col-md-3">
+      <div class=" d-flex justify-content-center col-md-9">
         <div class="the-keeper-co">
           <p class="mb-0">the</p>
           <p class="mb-0">keepr</p>
