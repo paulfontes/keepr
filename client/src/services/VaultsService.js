@@ -15,7 +15,7 @@ class VaultsService {
     async createVault(vaultData) {
         const response = await api.post('api/vaults', vaultData)
         const vault = new Vault(response.data)
-        AppState.vaults.unshift(vault)
+        AppState.vaults.push(vault)
     }
     async getVaultById(vaultId) {
         const response = await api.get(`api/vaults/${vaultId}`)

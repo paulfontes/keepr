@@ -19,17 +19,6 @@ onMounted(() => {
     allSavedKeepsInVault()
 })
 
-// async function getAllKeepsInPublicVault() {
-//     try {
-//         await vaultsService.getAllKeepsInPublicVault(route.params.vaultId)
-//     }
-//     catch (error){
-//       Pop.error(error);
-//       logger.log(error)
-//     }
-// }
-
-
 
 async function getVaultById() {
     try {
@@ -71,8 +60,8 @@ async function allSavedKeepsInVault() {
             <div class="col-12 text-center my-5 d-flex justify-content-center">
                 <h4 class="border bg-purple rounded num-keeps">{{ savedKeeps.length }} Keeps</h4>
             </div>
-            <div v-for="savedKeep in savedKeeps" :key="savedKeep.id" class="col-3 masonry-container">
-                <VaultKeepCards />
+            <div class="col-12 masonry-container">
+                <VaultKeepCards v-for="savedKeep in savedKeeps" :key="savedKeep.id" :vaultKeep="savedKeep" />
             </div>
         </section>
     </div>

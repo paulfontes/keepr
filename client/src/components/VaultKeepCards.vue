@@ -6,19 +6,18 @@ import { Pop } from '@/utils/Pop.js';
 import { logger } from '@/utils/Logger.js';
 import { keepsService } from '@/services/KeepsService.js';
 
+const props = defineProps({
+    vaultKeep: {
+        type: Object,
+        required: true
+    }
+})
 
-const savedKeeps = computed(() => AppState.savedKeeps)
-const activeKeep = computed(() => AppState.activeKeep)
 const account = computed(() => AppState.account)
-
-
-
-
 
 async function getKeepById(keepId) {
     try {
         await keepsService.getKeepById(keepId)
-
     }
     catch (error) {
         Pop.error(error);
@@ -30,23 +29,17 @@ async function getKeepById(keepId) {
 
 <template>
 
-    <div v-for="savedKeep in savedKeeps" :id="savedKeep.id">
-        <div class="container">
-
-            <div class="keep-data row">
-                <!-- <div class="delete-button">
-                    <button v-if="account" class="btn btn-outline-red"><i class="mdi mdi-delete"></i></button>
-                </div> -->
-                <img @click="getKeepById(savedKeep.id)" :src="savedKeep.img" class="keep-img p-0" alt=""
-                    data-bs-toggle="modal" data-bs-target="#vault-keep-details">
-                <div class="keep-info d-flex">
-                    <div>
-                        <h5>{{ savedKeep.name }}</h5>
-                    </div>
-                    <div class="profile-img-location">
-                        <img class="profile-img" :src="savedKeep.creator.picture"
-                            :alt="'Picture of' + savedKeep.creator.name" :title="savedKeep.creator.name">
-                    </div>
+    <div class="container" :id="vaultKeep.id">
+        <div class="keep-data row">
+            <img @click="getKeepById(vaultKeep.id)" :src="vaultKeep.img" class="keep-img p-0" alt=""
+                data-bs-toggle="modal" data-bs-target="#vault-keep-details">
+            <div class="keep-info d-flex">
+                <div>
+                    <h5>{{ vaultKeep.name }}</h5>
+                </div>
+                <div v-if="vaultKeep?.creator" class="profile-img-location">
+                    <img class="profile-img" :src="vaultKeep.creator.picture"
+                        :alt="'Picture of' + vaultKeep.creator.name" :title="vaultKeep.creator.name">
                 </div>
             </div>
         </div>
@@ -89,5 +82,8 @@ async function getKeepById(keepId) {
 .profile-img {
     height: 50px;
     border-radius: 50%;
+    width: 50px;
+    object-fit: cover;
+    object-position: top;
 }
 </style>
