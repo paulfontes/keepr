@@ -15,6 +15,7 @@ const account = computed(() => AppState.account)
 const savedKeeps = computed(() => AppState.savedKeeps)
 const vaultKeeps = computed(() => AppState.vaultsKeeps)
 const vaults = computed(() => AppState.vaults)
+const myVaults = computed(() => AppState.myVaults)
 
 
 const route = useRoute()
@@ -78,11 +79,11 @@ async function getMyVaults() {
 
                             <button v-if="account" @click="getMyVaults()" class="btn btn-secondary dropdown-toggle"
                                 type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                {{selectedVaultId ? (vaults.find(v => v.id == selectedVaultId)?.name || 'Pick a Vault')
-                                    : 'Pick a Vault'}}
+                                {{selectedVaultId ? (myVaults.find(v => v.id == selectedVaultId)?.name ||
+                                    'Pick a Vault') : 'Pick a Vault'}}
                             </button>
                             <ul class="dropdown-menu">
-                                <li v-for="vault in vaults" :key="vault.id">
+                                <li v-for="vault in myVaults" :key="vault.id">
                                     <a class="dropdown-item" @click="selectVault(vault.id)">
                                         {{ vault.name }}
                                         <i v-if="selectedVaultId === vault.id" class="mdi mdi-check"></i>

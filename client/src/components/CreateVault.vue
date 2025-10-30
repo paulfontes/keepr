@@ -48,10 +48,16 @@ async function CreateVault() {
                 </div>
                 <div class="col-12">
                     <label for="vault-description">Vault Description</label>
-                    <textarea v-model="editableVaultData.description" required type="text" name="vault-name"
-                        id="vault-name" class="form-control"></textarea>
+                    <textarea v-model="editableVaultData.description" required type="text" name="vault-description"
+                        id="vault-description" class="form-control"></textarea>
                 </div>
-                <div class="col-12 text-end mt-4">
+                <div class="col-6 form-check my-3">
+                    <label for="vault-is-private">Want Vault to be Private?</label>
+                    <input @click="editableVaultData.isPrivate != false" v-model="editableVaultData.isPrivate"
+                        type="checkbox" name="vault-is-private" id="vault-is-private" class="form-check-label ms-3">
+                </div>
+
+                <div class="col-6 text-end my-3">
                     <button type="submit" data-bs-dismiss="modal">Create</button>
                 </div>
             </section>
