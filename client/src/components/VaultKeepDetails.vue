@@ -17,6 +17,10 @@ const savedKeeps = computed(() => AppState.savedKeeps)
 const route = useRoute()
 
 async function deleteVaultKeep() {
+    const confirmed = await Pop.confirm('Are you sure you want to remove this keep from the vault?')
+    if (!confirmed) {
+        return
+    }
     try {
         const vaultKeepId = activeKeep.value.vaultKeepId
         if (!vaultKeepId) {

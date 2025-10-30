@@ -22,9 +22,14 @@ onMounted(async () => {
     await getVaultById()
 })
 
+watch(route, async () => {
+    await getVaultById()
+})
+
 watch(vaultKeep, async (newVault) => {
     if (newVault) {
         await allSavedKeepsInVault()
+
     }
 })
 

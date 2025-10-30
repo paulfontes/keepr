@@ -15,6 +15,10 @@ const account = computed(() => AppState.account)
 
 
 async function deleteKeep(keepId) {
+    const confirmed = await Pop.confirm('Are you sure you want to delete this keep? This action cannot be undone.')
+    if (!confirmed) {
+        return
+    }
     try {
         await keepsService.deleteKeep(keepId)
     }

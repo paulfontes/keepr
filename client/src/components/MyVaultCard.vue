@@ -13,6 +13,10 @@ const account = computed(() => AppState.account)
 
 
 async function deleteVault(vaultId) {
+    const confirmed = await Pop.confirm('Are you sure you want to delete this vault? This action cannot be undone.')
+    if (!confirmed) {
+        return
+    }
     try {
         await vaultsService.deleteVault(vaultId)
     }
