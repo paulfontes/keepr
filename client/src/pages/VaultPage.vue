@@ -62,7 +62,7 @@ async function allSavedKeepsInVault() {
 <template>
     <div v-if="vaultKeep" class="container">
         <section class="row justify-content-center">
-            <div class="col-5 text-center position-relative">
+            <div class="col-md-5 text-center position-relative">
                 <img :src="vaultKeep.img" alt="" class="vault-cover-img ">
                 <div class="row text-center">
                     <div class="col-12 position-absolute top-50">
@@ -76,7 +76,7 @@ async function allSavedKeepsInVault() {
             <div class="col-12 text-center my-5 d-flex justify-content-center">
                 <h4 class="border bg-purple rounded num-keeps">{{ savedKeeps.length }} Keeps</h4>
             </div>
-            <div class="col-12 masonry-container">
+            <div class="col-md-12 col-sm-6 masonry-container">
                 <VaultKeepCards v-for="savedKeep in savedKeeps" :key="savedKeep.id" :savedKeep="savedKeep" />
             </div>
         </section>
@@ -95,6 +95,18 @@ async function allSavedKeepsInVault() {
 
     >div {
         break-inside: avoid;
+    }
+
+}
+
+@media(max-width:584px) {
+    .masonry-container {
+        columns: 130px;
+
+        >div {
+            break-inside: avoid;
+        }
+
     }
 
 }

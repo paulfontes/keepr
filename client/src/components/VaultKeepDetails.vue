@@ -53,10 +53,10 @@ async function getKeepById(keepId) {
 <template>
     <div class="container-fluid">
         <section v-if="activeKeep" :key="activeKeep.id" class="row">
-            <div class="col-6 p-0">
+            <div class="col-md-6 p-0">
                 <img :src="activeKeep.img" :alt="activeKeep.name" class="img-fluid modal-img">
             </div>
-            <div class="col-6 text-center">
+            <div class="col-md-6 text-center">
                 <section class="row">
                     <div class="col-12">
                         <span class="me-3">{{ activeKeep.views }} <i class="mdi mdi-eye"></i></span>
@@ -74,7 +74,7 @@ async function getKeepById(keepId) {
                                     class="mdi mdi-diameter-variant"></i>
                                 Remove from Vault</button>
                         </div>
-                        <div class="col-6 text-end" data-bs-dismiss="modal">
+                        <div class="col-md-6 text-end" data-bs-dismiss="modal">
                             <RouterLink :to="{ name: 'Profile', params: { profileId: activeKeep.creatorId } }">
                                 <img :src="activeKeep.creator.picture" alt="" class="modal-profile-pic">
                                 {{ activeKeep.creator.name }}

@@ -34,7 +34,7 @@ async function deleteVault(vaultId) {
 <template>
 
     <section class="row">
-        <div v-for="vault in vaults" :id="vault.id" class="col-3 position-relative">
+        <div v-for="vault in vaults" :id="vault.id" class="col-md-3 position-relative">
             <button v-if="account?.id == vault.creatorId" @click="deleteVault(vault.id)"
                 class="btn btn-outline-red position-absolute"><i class="mdi mdi-delete-circle-outline"
                     title="delete vault"></i></button>

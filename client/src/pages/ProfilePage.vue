@@ -117,6 +117,18 @@ async function getMyVaults() {
 
 }
 
+@media(max-width:584px) {
+    .masonry-container {
+        columns: 130px;
+
+        >div {
+            break-inside: avoid;
+        }
+
+    }
+
+}
+
 .cover-img {
     height: 300px;
     border-radius: 5px;
