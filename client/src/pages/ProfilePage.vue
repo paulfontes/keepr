@@ -27,6 +27,8 @@ onMounted(() => {
     getProfileKeeps()
 })
 
+
+
 async function getProfileById() {
     try {
         await profilesService.getProfile(route.params.profileId)

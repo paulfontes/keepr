@@ -11,6 +11,8 @@ class VaultsService {
         logger.log(`Vault ${vaultId} has been deleted! `)
         const index = AppState.vaults.findIndex((r) => r.id == vaultId)
         AppState.vaults.splice(index, 1)
+        const indexM = AppState.myVaults.findIndex((r) => r.id == vaultId)
+        AppState.myVaults.splice(indexM, 1)
     }
     async createVault(vaultData) {
         const response = await api.post('api/vaults', vaultData)
