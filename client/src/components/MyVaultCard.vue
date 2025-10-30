@@ -32,7 +32,8 @@ async function deleteVault(vaultId) {
     <section class="row">
         <div v-for="myVault in myVaults" :id="myVault.id" class="col-3 position-relative">
             <button v-if="account?.id == myVault.creatorId" @click="deleteVault(myVault.id)"
-                class="btn btn-outline-red position-absolute"><i class="mdi mdi-delete-circle-outline"></i></button>
+                class="btn btn-outline-red position-absolute"><i class="mdi mdi-delete-circle-outline"
+                    title="delete vault"></i></button>
             <RouterLink :to="{ name: 'Vault', params: { vaultId: myVault.id } }">
                 <img :src="myVault.img" alt="" class="img-fluid myVault-img">
                 <h4 class="myVault-info">{{ myVault.name }}</h4>

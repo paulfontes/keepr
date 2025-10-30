@@ -59,10 +59,10 @@ async function getMyVaults() {
 <template>
     <div class="container-fluid">
         <section v-if="activeKeep" :key="activeKeep.id" class="row">
-            <div class="col-6 p-0">
+            <div class="col-md-6 p-0">
                 <img :src="activeKeep.img" :alt="activeKeep.name" class="img-fluid modal-img">
             </div>
-            <div class="col-6 text-center">
+            <div class="col-md-6 text-center">
                 <section class="row">
                     <div class="col-12">
                         <span class="me-3">{{ activeKeep.views }} <i class="mdi mdi-eye"></i></span>
@@ -75,7 +75,7 @@ async function getMyVaults() {
                         </div>
                     </div>
                     <div class="d-flex text-end mt-5">
-                        <div class="col-6 d-flex justify-content-between">
+                        <div class="col-md-6 d-flex justify-content-between">
 
                             <button v-if="account" @click="getMyVaults()" class="btn btn-secondary dropdown-toggle"
                                 type="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -96,7 +96,7 @@ async function getMyVaults() {
                                 Save to Vault
                             </button>
                         </div>
-                        <div class="col-6 text-end" data-bs-dismiss="modal">
+                        <div class="col-md-6 text-end" data-bs-dismiss="modal">
                             <RouterLink :to="{ name: 'Profile', params: { profileId: activeKeep.creatorId } }">
                                 <img :src="activeKeep.creator.picture" alt="" class="modal-profile-pic">
                                 {{ activeKeep.creator.name }}

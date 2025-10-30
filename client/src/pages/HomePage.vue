@@ -28,7 +28,7 @@ async function getKeeps() {
 <template>
   <div class="container">
     <section class="row">
-      <div class="masonry-container col-12">
+      <div class="masonry-container col-md-12 col-sm-6">
         <KeepCard />
       </div>
     </section>
@@ -41,6 +41,18 @@ async function getKeeps() {
 
   >div {
     break-inside: avoid;
+  }
+
+}
+
+@media(max-width:584px) {
+  .masonry-container {
+    columns: 130px;
+
+    >div {
+      break-inside: avoid;
+    }
+
   }
 
 }

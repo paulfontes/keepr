@@ -19,12 +19,11 @@ const router = useRouter()
 
 
 onMounted(async () => {
-    await getVaultById() // Wait for vault check first
+    await getVaultById()
 })
 
 watch(vaultKeep, async (newVault) => {
     if (newVault) {
-        // Only get keeps if we successfully got the vault
         await allSavedKeepsInVault()
     }
 })
