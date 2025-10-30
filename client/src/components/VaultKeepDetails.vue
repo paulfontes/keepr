@@ -108,6 +108,8 @@ async function getKeepById(keepId) {
     height: 550px;
     width: 100%;
     border-radius: 1% 0% 0% 1%;
+    object-fit: cover;
+    object-position: center;
 }
 
 a {
