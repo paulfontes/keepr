@@ -23,8 +23,9 @@ const route = useRoute()
 
 onMounted(() => {
     getProfileById()
-    getProfileVaults()
     getProfileKeeps()
+    getProfileVaults()
+
 })
 
 
