@@ -49,5 +49,5 @@ Keepr is a full-stack web application inspired by Pinterest that allows users to
 
 ---
 
-## check it out
+## Check it out
 https://youtu.be/TNWAIuxFnlk
